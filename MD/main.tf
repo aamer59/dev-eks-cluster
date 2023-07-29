@@ -80,3 +80,8 @@ module "eks" {
     }
   }
 }
+
+module "dns" {
+  source       = "./modules/external-dns"
+  cluster_name = "dev-eks"
+}
