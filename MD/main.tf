@@ -4,6 +4,14 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.10.0"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.10.1"
+    }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "~> 1.14"
+    }
   }
   backend "s3" {
     bucket  = "psinc-state"
