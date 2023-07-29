@@ -50,7 +50,7 @@ locals {
 module "network" {
   source          = "./modules/network"
   name            = "eks-vpc"
-  cluster_name    = "dev-eks"
+  cluster_name    = "abyaz"
   vpc_cidr        = local.vpc_cidr
   azs             = local.azs
   private_subnets = local.private_subnets
@@ -58,8 +58,8 @@ module "network" {
 }
 
 module "eks" {
-  source          = "./modules/eks"
-  cluster_name    = "dev-eks"
+  source          = "./modules/cluster"
+  cluster_name    = "abyaz"
   vpc_id          = module.network.vpc_id
   subnet_ids      = module.network.private_subnets
   cluster_version = "1.27"
@@ -83,5 +83,5 @@ module "eks" {
 
 module "dns" {
   source       = "./modules/external-dns"
-  cluster_name = "dev-eks"
+  cluster_name = "abyaz"
 }
