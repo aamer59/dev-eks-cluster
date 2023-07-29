@@ -81,6 +81,24 @@ module "eks" {
   }
 }
 
+data "aws_eks_cluster_auth" "cluster" {
+  name = "abyaz"
+}
+
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}
+
+provider "helm" {
+  kubernetes {
+    host                   = module.eks.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+    token                  = data.aws_eks_cluster_auth.cluster.token
+  }
+}
+
 module "dns" {
   source                     = "./modules/api/external-dns"
   dns_hosted_zone            = "psinc.click"
@@ -101,4 +119,15 @@ module "dns" {
 
 module "argocd" {
   source = "./modules/api/argocd"
+  values = [
+    templatefile("./templates/values.yaml.tpl",
+      {
+        "argocd_ingress_enabled"          = true
+        "argocd_ingress_class"            = "alb"
+        "argocd_server_host"              = "abyaz"
+        "argocd_load_balancer_name"       = "argocd-alb-ingress"
+        "argocd_ingress_tls_acme_enabled" = true
+      }
+    )
+  ]
 }

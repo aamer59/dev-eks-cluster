@@ -48,3 +48,14 @@ variable "argocd_ingress_tls_secret_name" {
 variable "argocd_name" {
   default = "argocd-demo"
 }
+
+variable "argocd_helm_chart_version" {
+  description = "argocd helm chart version to use"
+  type        = string
+  default     = "5.42.0"
+}
+
+variable "values" {
+  type    = list(string)
+  default = []
+}

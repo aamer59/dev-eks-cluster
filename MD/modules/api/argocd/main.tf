@@ -11,18 +11,7 @@ resource "helm_release" "argocd" {
   namespace        = var.argocd_namespace
   create_namespace = true
   version          = var.argocd_helm_chart_version == "" ? null : var.argocd_helm_chart_version
-
-  values = [
-    templatefile("values.yaml.tpl",
-      {
-        "argocd_ingress_enabled"          = var.argocd_ingress_enabled
-        "argocd_ingress_class"            = "alb"
-        "argocd_server_host"              = var.argocd_server_host
-        "argocd_load_balancer_name"       = "${var.argocd_name}-alb-ingress"
-        "argocd_ingress_tls_acme_enabled" = true
-      }
-    )
-  ]
+  values           = var.values
 
   set {
     name  = "server.service.type"

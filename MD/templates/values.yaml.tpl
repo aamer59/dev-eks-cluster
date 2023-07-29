@@ -13,7 +13,6 @@ server:
       alb.ingress.kubernetes.io/scheme: "internet-facing"
       alb.ingress.kubernetes.io/backend-protocol: HTTP
       alb.ingress.kubernetes.io/healthcheck-path: "/"
-      alb.ingress.kubernetes.io/certificate-arn: ${ argocd_acm_arn }
       external-dns.alpha.kubernetes.io/hostname: ${ argocd_server_host }
       external-dns.alpha.kubernetes.io/alias: "true"
       alb.ingress.kubernetes.io/listen-ports: [{"HTTP": 80}, {"HTTPS":443}]
