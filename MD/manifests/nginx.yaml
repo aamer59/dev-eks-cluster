@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: nginx-app-dep
 spec:
   selector:
     matchLabels:
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
+  name: nginx-app-svc
   annotations:
     external-dns.alpha.kubernetes.io/hostname: psinc.click
     external-dns.alpha.kubernetes.io/ttl: "120"
@@ -40,10 +40,11 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: myingress
+  name: nginx-app-ing
   labels:
-    name: myingress
+    app: myapp
 spec:
+  ingressClassName: nginx
   rules:
   - host: psinc.click
     http:
@@ -52,6 +53,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: nginx
+            name: nginx-app-svc
             port:
               number: 80
