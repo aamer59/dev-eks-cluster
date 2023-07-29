@@ -48,7 +48,7 @@ locals {
 }
 
 module "network" {
-  source          = "./modules/network"
+  source          = "./modules/base"
   name            = "eks-vpc"
   cluster_name    = "abyaz"
   vpc_cidr        = local.vpc_cidr
