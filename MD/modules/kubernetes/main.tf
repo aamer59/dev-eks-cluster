@@ -43,6 +43,8 @@ module "eks" {
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
 
+  eks_managed_node_groups = var.eks_managed_node_groups
+
   node_security_group_additional_rules = {
     ingress_cluster_all = {
       description                   = "Cluster to node all ports/protocols"
