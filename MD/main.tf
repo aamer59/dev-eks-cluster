@@ -80,3 +80,12 @@ module "eks" {
     }
   }
 }
+
+module "dns" {
+  source                     = "./modules/api/external-dns"
+  external_dns_chart_name    = ""
+  external_dns_chart_repo    = ""
+  external_dns_chart_version = ""
+  external_dns_values        = ""
+  dns_hosted_zone            = "psinc.click"
+}
