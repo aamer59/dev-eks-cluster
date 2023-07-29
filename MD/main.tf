@@ -98,3 +98,7 @@ module "dns" {
     "sources"            = "{ingress}"
   }
 }
+
+module "argocd" {
+  source = "./modules/api/argocd"
+}
