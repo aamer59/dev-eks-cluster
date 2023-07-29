@@ -15,7 +15,7 @@ terraform {
   }
   backend "s3" {
     bucket  = "psinc-state"
-    key     = "infra.tf"
+    key     = "base.tf"
     region  = "ap-south-2"
     encrypt = true
 
