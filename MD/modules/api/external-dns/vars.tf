@@ -41,11 +41,6 @@ variable "developer_users" {
   default = ["anand", "mani"]
 }
 
-variable "mapUsers" {
-  type    = string
-  default = ""
-}
-
 variable "name_prefix" {
   type    = string
   default = ""
