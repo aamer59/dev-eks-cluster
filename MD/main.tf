@@ -124,7 +124,6 @@ locals {
   ]
 }
 
-
 module "dns" {
   source                     = "./modules/api/external-dns"
   name_prefix                = "dev"
@@ -166,4 +165,14 @@ module "argocd" {
       }
     )
   ]
+}
+
+module "alb" {
+  source                       = "./modules/api/aws-load-balancer-controller"
+  vpc_id                       = module.network.vpc_id
+  cluster_name                 = "abyaz"
+  public_subnets               = module.network.public_subnets
+  alb_controller_chart_name    = "aws-load-balancer-controller"
+  alb_controller_chart_repo    = "https://aws.github.io/eks-charts"
+  alb_controller_chart_version = "1.5.5"
 }

@@ -28,6 +28,11 @@ resource "helm_release" "external_dns" {
   }
 
   set {
+    name  = "provider"
+    value = "aws"
+  }
+
+  set {
     name  = "domainFilters"
     value = "{${var.dns_hosted_zone}}"
   }
@@ -38,13 +43,13 @@ resource "helm_release" "external_dns" {
   }
 }
 
-# add 'mapUsers' section to 'aws-auth' configmap with Admins & Developers
 resource "time_sleep" "wait" {
   create_duration = "180s"
   triggers = {
     cluster_endpoint = var.cluster_endpoint
   }
 }
+
 resource "kubernetes_config_map_v1_data" "aws_auth_users" {
   metadata {
     name      = "aws-auth"
@@ -60,7 +65,6 @@ resource "kubernetes_config_map_v1_data" "aws_auth_users" {
   depends_on = [time_sleep.wait]
 }
 
-# create developers Role using RBAC
 resource "kubernetes_cluster_role" "iam_roles_developers" {
   metadata {
     name = "${var.name_prefix}-developers"
