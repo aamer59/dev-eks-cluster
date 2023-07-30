@@ -5,8 +5,8 @@ metadata:
   labels:
     name: psinc
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
     kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
     certmanager.k8s.io/acme-challenge-type: "HTTP-01"
     certmanager.k8s.io/acme-dns01-provider: "route53"
 spec:
