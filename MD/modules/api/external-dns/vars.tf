@@ -27,3 +27,23 @@ variable "external_dns_iam_role" {
   type    = string
   default = ""
 }
+
+variable "cluster_endpoint" {
+  type    = string
+  default = ""
+}
+
+variable "developer_users" {
+  type    = list(any)
+  default = []
+}
+
+variable "mapUsers" {
+  type    = string
+  default = ""
+}
+
+variable "name_prefix" {
+  type    = string
+  default = ""
+}

@@ -99,12 +99,42 @@ provider "helm" {
   }
 }
 
+data "aws_caller_identity" "current" {
+
+}
+
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+
+  admin_user_map_users = [
+    for admin_user in var.admin_users :
+    {
+      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${admin_user}"
+      username = admin_user
+      groups   = ["system:masters"]
+    }
+  ]
+  developer_user_map_users = [
+    for developer_user in var.developer_users :
+    {
+      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${developer_user}"
+      username = developer_user
+      groups   = ["${var.name_prefix}-developers"]
+    }
+  ]
+}
+
+
 module "dns" {
   source                     = "./modules/api/external-dns"
+  name_prefix                = "dev"
   dns_hosted_zone            = "psinc.click"
+  external_dns_iam_role      = "external-dns"
   external_dns_chart_name    = "external-dns"
   external_dns_chart_repo    = "https://kubernetes-sigs.github.io/external-dns"
   external_dns_chart_version = "1.9.0"
+  cluster_endpoint           = module.eks.cluster_endpoint
+  mapUsers                   = yamlencode(concat(local.admin_user_map_users, local.developer_user_map_users))
   external_dns_values = {
     "image.repository"   = "k8s.gcr.io/external-dns/external-dns",
     "image.tag"          = "v0.11.0",
