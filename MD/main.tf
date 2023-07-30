@@ -110,30 +110,30 @@ provider "helm" {
 data "aws_caller_identity" "current" {
 }
 
-module "dns" {
-  source                     = "./modules/api/external-dns"
-  name_prefix                = "development"
-  dns_hosted_zone            = "psinc.click"
-  admin_users                = ["aamer"]
-  developer_users            = ["mani", "anand"]
-  external_dns_iam_role      = "external-dns"
-  external_dns_chart_name    = "external-dns"
-  external_dns_chart_repo    = "https://kubernetes-sigs.github.io/external-dns"
-  external_dns_chart_version = "1.9.0"
-  cluster_endpoint           = module.eks.cluster_endpoint
+# module "dns" {
+#   source                     = "./modules/api/external-dns"
+#   name_prefix                = "development"
+#   dns_hosted_zone            = "psinc.click"
+#   admin_users                = ["aamer"]
+#   developer_users            = ["mani", "anand"]
+#   external_dns_iam_role      = "external-dns"
+#   external_dns_chart_name    = "external-dns"
+#   external_dns_chart_repo    = "https://kubernetes-sigs.github.io/external-dns"
+#   external_dns_chart_version = "1.9.0"
+#   cluster_endpoint           = module.eks.cluster_endpoint
 
-  external_dns_values = {
-    "image.repository"   = "k8s.gcr.io/external-dns/external-dns",
-    "image.tag"          = "v0.11.0",
-    "logLevel"           = "info",
-    "logFormat"          = "json",
-    "triggerLoopOnEvent" = "true",
-    "interval"           = "5m",
-    "policy"             = "sync",
-    "sources"            = "{ingress}"
-  }
+#   external_dns_values = {
+#     "image.repository"   = "k8s.gcr.io/external-dns/external-dns",
+#     "image.tag"          = "v0.11.0",
+#     "logLevel"           = "info",
+#     "logFormat"          = "json",
+#     "triggerLoopOnEvent" = "true",
+#     "interval"           = "5m",
+#     "policy"             = "sync",
+#     "sources"            = "{ingress}"
+#   }
 
-}
+# }
 
 module "argocd" {
   source = "./modules/api/argocd"
