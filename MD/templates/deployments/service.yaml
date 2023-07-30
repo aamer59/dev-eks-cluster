@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: psinc
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: psinc.click
 spec:
   type: LoadBalancer
   selector:

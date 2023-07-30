@@ -9,6 +9,7 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     certmanager.k8s.io/acme-challenge-type: "HTTP-01"
     certmanager.k8s.io/acme-dns01-provider: "route53"
+    external-dns.alpha.kubernetes.io/aws-target-hosted-zone: "psinc.click"
 spec:
   ingressClassName: alb
   rules:
