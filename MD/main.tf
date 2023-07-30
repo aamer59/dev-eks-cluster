@@ -107,9 +107,7 @@ provider "helm" {
   }
 }
 
-
 data "aws_caller_identity" "current" {
-
 }
 
 module "dns" {
