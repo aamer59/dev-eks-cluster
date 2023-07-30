@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: psinc-dep
+  name: psinc
 spec:
   selector:
     matchLabels:
