@@ -135,7 +135,7 @@ module "argocd" {
       {
         "argocd_ingress_enabled"          = true
         "argocd_ingress_class"            = "alb"
-        "argocd_server_host"              = "abyaz"
+        "argocd_server_host"              = "argocd.psinc.click"
         "argocd_load_balancer_name"       = "argocd-alb-ingress"
         "argocd_ingress_tls_acme_enabled" = true
       }
