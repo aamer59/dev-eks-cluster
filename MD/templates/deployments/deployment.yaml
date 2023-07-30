@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psinc-dep
+spec:
+  selector:
+    matchLabels:
+      app: psinc
+  template:
+    metadata:
+      labels:
+        app: psinc
+    spec:
+      containers:
+      - name: psinc-cont
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
