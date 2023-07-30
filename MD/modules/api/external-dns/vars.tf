@@ -33,9 +33,12 @@ variable "cluster_endpoint" {
   default = ""
 }
 
+variable "admin_users" {
+  default = ["aamer"]
+}
+
 variable "developer_users" {
-  type    = list(any)
-  default = []
+  default = ["anand", "mani"]
 }
 
 variable "mapUsers" {

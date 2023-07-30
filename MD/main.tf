@@ -134,7 +134,12 @@ module "dns" {
   external_dns_chart_repo    = "https://kubernetes-sigs.github.io/external-dns"
   external_dns_chart_version = "1.9.0"
   cluster_endpoint           = module.eks.cluster_endpoint
-  mapUsers                   = yamlencode(concat(local.admin_user_map_users, local.developer_user_map_users))
+
+  mapUsers = yamlencode(concat(
+    local.admin_user_map_users,
+    local.developer_user_map_users
+  ))
+
   external_dns_values = {
     "image.repository"   = "k8s.gcr.io/external-dns/external-dns",
     "image.tag"          = "v0.11.0",
@@ -145,6 +150,7 @@ module "dns" {
     "policy"             = "sync",
     "sources"            = "{ingress}"
   }
+
 }
 
 module "argocd" {
